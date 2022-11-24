@@ -3,8 +3,8 @@ import camera from '../../../Assets/banner/camera.webp'
 
 const ExtraInfo = () => {
     return (
-        <div className='lg:flex px-5 my-10'>
-            <div className='lg:w-2/5 flex flex-col justify-center lg:mr-10'>
+        <div className='lg:flex flex-row-reverse px-5 my-10'>
+            <div className='lg:w-2/5 flex flex-col justify-center lg:ml-10'>
                 <div>
                     <h1 className='uppercase text-2xl font-bold mb-2'>42 FRONT CAMERA FOR PERFECT SHOT</h1>
                     <p className='text-justify'>

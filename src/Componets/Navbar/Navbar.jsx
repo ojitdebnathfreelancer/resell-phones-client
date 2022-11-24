@@ -6,7 +6,7 @@ const Navbar = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(()=>{
-        fetch('categories.json')
+        fetch('http://localhost:5000/categories')
         .then(res => res.json())
         .then(data => {
             setCategories(data);
@@ -21,7 +21,7 @@ const Navbar = () => {
             </span>
             <ul className='z-50 bg-slate-200'>
                 {
-                    categories.map(category => <li key={category.category_id}><Link to={`/category/:${category.category_id}`}>{category.category_name}</Link></li> )
+                    categories.map(category => <li key={category.category_id}><Link to={`/category/${category.category_id}`}>{category.category_name}</Link></li> )
                 }
             </ul>
         </li>
