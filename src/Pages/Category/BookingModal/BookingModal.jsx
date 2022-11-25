@@ -1,20 +1,37 @@
 import React, { useContext } from 'react';
 import { resellContext } from '../../../AuthContext/AutchContext';
+import toast from 'react-hot-toast';
 
-const BookingModal = ({ bookingProduct }) => {
-    const {user} = useContext(resellContext);
+const BookingModal = ({ bookingProduct, setBookingProduct }) => {
+    const { user } = useContext(resellContext);
     const { locaton, product_name, resell_price } = bookingProduct;
 
     const SubmitBooking = event => {
         event.preventDefault();
         const form = event.target;
-        const productName = form.productName.value;
-        const price = form.price.value;
-        const location = form.location.value;
-        const buyerName = form.buyerName.value;
-        const buyerEmail = form.buyerEmail.value;
-        const buyerPhone = form.buyerPhone.value;
-        console.log(productName, price, location, buyerEmail, buyerName, buyerPhone);
+        const booked = {
+            productName: form.productName.value,
+            price: form.price.value,
+            location: form.location.value,
+            buyerName: form.buyerName.value,
+            buyerEmail: form.buyerEmail.value,
+            buyerPhone: form.buyerPhone.value
+        };
+        setBookingProduct(null);
+        fetch('http://localhost:5000/booking',{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(booked)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.acknowledged){
+                toast.success('Product is booked')
+            }
+        });
+        // booking data sent server 
     };
     // submit booking data 
 
@@ -37,7 +54,7 @@ const BookingModal = ({ bookingProduct }) => {
 
                         <div className='mt-2'>
                             <label>Buyer Name</label>
-                            <input value={user?.displayName} name="buyerName" type="text" readOnly className="input input-bordered w-full"/>
+                            <input value={user?.displayName} name="buyerName" type="text" readOnly className="input input-bordered w-full" />
                         </div>
 
                         <div className='mt-2'>
@@ -52,7 +69,7 @@ const BookingModal = ({ bookingProduct }) => {
 
                         <div className='mt-2'>
                             <label>Buyer Phone</label>
-                            <input  name="buyerPhone" placeholder='Phone unmber' type="text" className="input input-bordered w-full" required />
+                            <input name="buyerPhone" placeholder='Phone unmber' type="text" className="input input-bordered w-full" required />
                         </div>
 
                         <div className='text-center mt-5'>

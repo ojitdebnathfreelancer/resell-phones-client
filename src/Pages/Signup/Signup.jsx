@@ -13,18 +13,24 @@ const Signup = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const handelSignup = (data) => {
+        const savUser = {
+            name: data.name,
+            email: data.email,
+            role: data.role,
+        };
+
         userCreate(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 if (user) {
-                    update(data.name);
+                    update(data.name, savUser);
                 }
             })
             .catch(error => setError(error));
     };
     // login data for handel 
 
-    const update = (name) => {
+    const update = (name, saveUser) => {
         const profile = {
             displayName: name,
             photoURL: ''
@@ -32,8 +38,33 @@ const Signup = () => {
 
         updateUser(profile)
             .then(() => {
-                toast.success('User created successfull');
-                navigate('/');
+                fetch('http://localhost:5000/users', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(saveUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        const currentUser = { email: saveUser.email }
+                        if (data.acknowledged) {
+                            fetch('http://localhost:5000/jwt', {
+                                method: 'POST',
+                                headers: {
+                                    "content-type": "application/json"
+                                },
+                                body: JSON.stringify(currentUser)
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    localStorage.setItem('accessToken', data.token);
+                                    toast.success('User created successfull');
+                                    navigate('/');
+                                })
+                        }
+                    })
+
             })
             .catch(error => setError(error));
     };
@@ -44,11 +75,43 @@ const Signup = () => {
             .then(result => {
                 const user = result.user;
                 if (user) {
-                    toast.success("Buyer account successfull");
-                    navigate('/');
+                    const Guser = {
+                        name: user.displayName,
+                        email: user.email,
+                        role: 'buyer'
+                    };
+
+                    fetch('http://localhost:5000/users', {
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json"
+                        },
+                        body: JSON.stringify(Guser)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            const currentUser = { email: Guser.email }
+                            if (data.acknowledged) {
+                                fetch('http://localhost:5000/jwt', {
+                                    method: 'POST',
+                                    headers: {
+                                        "content-type": "application/json"
+                                    },
+                                    body: JSON.stringify(currentUser)
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        localStorage.setItem('accessToken', data.token);
+                                        toast.success("Buyer account successfull");
+                                        navigate('/');
+                                    })
+                            }
+                        })
+                    // toast.success("Buyer account successfull");
+                    // navigate('/');
                 }
             })
-            .then(error => setError(error.message));
+            .catch(error => setError(error.message));
     };
     // google handeler 
 

@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 
 const Login = () => {
-    const {userLogin, googleUser} = useContext(resellContext);
+    const { userLogin, googleUser } = useContext(resellContext);
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
     const navigate = useNavigate();
@@ -18,28 +18,75 @@ const Login = () => {
 
     const handelLogin = (data) => {
         userLogin(data.email, data.password)
-        .then(result =>{
-            const user = result.user;
-            if(user){
-                toast.success("Successfuly login");
-                navigate(from);
-            }
-        })
-        .catch(error => setError(error.message));
+            .then(result => {
+                const user = result.user;
+                const currentUser = { email: user?.email };
+                if (user) {
+                    fetch('http://localhost:5000/jwt', {
+                        method: 'POST',
+                        headers: {
+                            "content-type": "application/json"
+                        },
+                        body: JSON.stringify(currentUser)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            localStorage.setItem('accessToken', data.token);
+                            toast.success("Successfuly login");
+                            navigate(from);
+                        })
+                }
+            })
+            .catch(error => setError(error.message));
     };
     // login data for handel 
 
-    const errorEmpty = () =>{
+    const errorEmpty = () => {
         setError('');
     };
     // error state empty with onclick 
 
-    const handelGoogle = () =>{
+    const handelGoogle = () => {
         googleUser()
-        .then(result =>{
+            .then(result => {
+                const user = result.user;
+                if (user) {
+                    const Guser = {
+                        name: user.displayName,
+                        email: user.email,
+                        role: 'buyer'
+                    };
 
-        })
-        .catch(error => setError(error));
+                    fetch('http://localhost:5000/users', {
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json"
+                        },
+                        body: JSON.stringify(Guser)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            const currentUser = { email: Guser.email }
+                            if (data.acknowledged) {
+                                fetch('http://localhost:5000/jwt', {
+                                    method: 'POST',
+                                    headers: {
+                                        "content-type": "application/json"
+                                    },
+                                    body: JSON.stringify(currentUser)
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        localStorage.setItem('accessToken', data.token);
+                                        toast.success("Buyer account successfull");
+                                        navigate('/');
+                                    })
+                            }
+                        })
+
+                }
+            })
+            .catch(error => setError(error));
     };
     // user login by google 
 

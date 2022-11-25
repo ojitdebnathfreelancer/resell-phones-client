@@ -24,7 +24,11 @@ const router = createBrowserRouter([
             },
             {
                 path:'/category/:id',
-                loader: ({params})=> fetch(`http://localhost:5000/category/${params.id}`),
+                loader: ({params})=> fetch(`http://localhost:5000/category/${params.id}`,{
+                    headers:{
+                        authorization: `Bearer ${localStorage.getItem("accessToken")}`
+                    }
+                }),
                 element:<PrivetRoute><Category></Category></PrivetRoute>
             },
             {

@@ -15,12 +15,13 @@ const Navbar = () => {
             .then(data => {
                 setCategories(data);
             })
-    }, []);
+    }, [user]);
     // loading all cetegory name 
 
     const hadelLogout = () => {
         userLogout()
         .then(()=>{
+            localStorage.clear();
             navigate('/login');
         })
     };
