@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../Assets/logo/logo.png';
+import { resellContext } from '../../AuthContext/AutchContext';
 
 const Navbar = () => {
+    const { user, userLogout } = useContext(resellContext);
     const [categories, setCategories] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch('http://localhost:5000/categories')
-        .then(res => res.json())
-        .then(data => {
-            setCategories(data);
-        })    
-    },[]);
+            .then(res => res.json())
+            .then(data => {
+                setCategories(data);
+            })
+    }, []);
     // loading all cetegory name 
+
+    const hadelLogout = () => {
+        userLogout();
+    };
+    // handel logout user 
 
     const menuItems = <>
         <li tabIndex={0}>
@@ -21,13 +28,22 @@ const Navbar = () => {
             </span>
             <ul className='z-50 bg-slate-200'>
                 {
-                    categories.map(category => <li key={category.category_id}><Link to={`/category/${category.category_id}`}>{category.category_name}</Link></li> )
+                    categories.map(category => <li key={category.category_id}><Link to={`/category/${category.category_id}`}>{category.category_name}</Link></li>)
                 }
             </ul>
         </li>
-        <li><Link>LogIn</Link></li>
-        <li><Link>Sign Up</Link></li>
+        <li><Link>Deshboard</Link></li>
+        <li className='ml-5'>{user?.email}</li>
+        {
+            user?.uid ?
+                <li className='ml-5'>
+                    <button onClick={hadelLogout} className='btn btn-primary ml-5  rounded-lg'>Logout</button>
+                </li>
+                :
+                <li className='btn btn-primary ml-5 rounded-lg'><Link to='/login'>LogIn</Link></li>
+        }
     </>
+
     return (
         <div className="navbar justify-between z-50">
             <div className="navbar-start">
@@ -45,7 +61,7 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal p-0">
+                <ul className="menu menu-horizontal p-0 items-center">
                     {menuItems}
                 </ul>
             </div>

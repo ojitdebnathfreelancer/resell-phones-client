@@ -1,8 +1,7 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
 
 const BookingModal = ({ bookingProduct }) => {
-    const { img, locaton, orginal_price, post_time, product_name, resell_price, seller_name, used_time, _id } = bookingProduct;
+    const { locaton, product_name, resell_price } = bookingProduct;
 
     const SubmitBooking = event => {
         event.preventDefault();
@@ -35,11 +34,6 @@ const BookingModal = ({ bookingProduct }) => {
                         </div>
 
                         <div className='mt-2'>
-                            <label>Location</label>
-                            <input value={locaton} name="location" type="text" disabled className="input input-bordered w-full" />
-                        </div>
-
-                        <div className='mt-2'>
                             <label>Buyer Name</label>
                             <input value={"buyer name"} name="buyerName" type="text" disabled className="input input-bordered w-full" />
                         </div>
@@ -50,8 +44,13 @@ const BookingModal = ({ bookingProduct }) => {
                         </div>
 
                         <div className='mt-2'>
+                            <label>Location</label>
+                            <input value={locaton} name="location" type="text" className="input input-bordered w-full" />
+                        </div>
+
+                        <div className='mt-2'>
                             <label>Buyer Phone</label>
-                            <input value={"buyer phone"} name="buyerPhone" type="text" disabled className="input input-bordered w-full" />
+                            <input value={"buyer phone"} name="buyerPhone" type="text" className="input input-bordered w-full" />
                         </div>
 
                         <div className='text-center mt-5'>
