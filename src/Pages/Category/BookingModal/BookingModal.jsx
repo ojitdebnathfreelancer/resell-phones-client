@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { resellContext } from '../../../AuthContext/AutchContext';
 
 const BookingModal = ({ bookingProduct }) => {
+    const {user} = useContext(resellContext);
     const { locaton, product_name, resell_price } = bookingProduct;
 
     const SubmitBooking = event => {
@@ -25,32 +27,32 @@ const BookingModal = ({ bookingProduct }) => {
                     <form onSubmit={(e) => SubmitBooking(e)}>
                         <div>
                             <label>Product Name</label>
-                            <input value={product_name} name="productName" type="text" disabled className="input input-bordered w-full" />
+                            <input value={product_name} name="productName" type="text" readOnly className="input input-bordered w-full" />
                         </div>
 
                         <div className='mt-2'>
                             <label>Price</label>
-                            <input value={resell_price} name="price" type="text" disabled className="input input-bordered w-full" />
+                            <input value={resell_price} name="price" type="text" readOnly className="input input-bordered w-full" />
                         </div>
 
                         <div className='mt-2'>
                             <label>Buyer Name</label>
-                            <input value={"buyer name"} name="buyerName" type="text" disabled className="input input-bordered w-full" />
+                            <input value={user?.displayName} name="buyerName" type="text" readOnly className="input input-bordered w-full"/>
                         </div>
 
                         <div className='mt-2'>
                             <label>Buyer Email</label>
-                            <input value={"buyer email"} name="buyerEmail" type="text" disabled className="input input-bordered w-full" />
+                            <input value={user?.email} name="buyerEmail" type="text" readOnly className="input input-bordered w-full" />
                         </div>
 
                         <div className='mt-2'>
                             <label>Location</label>
-                            <input value={locaton} name="location" type="text" className="input input-bordered w-full" />
+                            <input defaultValue={locaton} name="location" type="text" className="input input-bordered w-full" required />
                         </div>
 
                         <div className='mt-2'>
                             <label>Buyer Phone</label>
-                            <input value={"buyer phone"} name="buyerPhone" type="text" className="input input-bordered w-full" />
+                            <input  name="buyerPhone" placeholder='Phone unmber' type="text" className="input input-bordered w-full" required />
                         </div>
 
                         <div className='text-center mt-5'>

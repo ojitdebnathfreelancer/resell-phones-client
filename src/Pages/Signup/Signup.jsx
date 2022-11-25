@@ -6,7 +6,7 @@ import { resellContext } from '../../AuthContext/AutchContext';
 import toast from 'react-hot-toast';
 
 const Signup = () => {
-    const { userCreate, googleUser } = useContext(resellContext);
+    const { userCreate, googleUser, updateUser } = useContext(resellContext);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -17,23 +17,38 @@ const Signup = () => {
             .then(result => {
                 const user = result.user;
                 if (user) {
-                    toast.success('User created successfull');
+                    update(data.name);
                 }
             })
             .catch(error => setError(error));
     };
     // login data for handel 
 
-    const handelGoogle = () =>{
+    const update = (name) => {
+        const profile = {
+            displayName: name,
+            photoURL: ''
+        };
+
+        updateUser(profile)
+            .then(() => {
+                toast.success('User created successfull');
+                navigate('/');
+            })
+            .catch(error => setError(error));
+    };
+    // update user handel 
+
+    const handelGoogle = () => {
         googleUser()
-        .then(result => {
-            const user = result.user;
-            if (user){
-                toast.success("Buyer account successfull");
-                navigate('/'); 
-            }
-        })
-        .then(error => setError(error.message));
+            .then(result => {
+                const user = result.user;
+                if (user) {
+                    toast.success("Buyer account successfull");
+                    navigate('/');
+                }
+            })
+            .then(error => setError(error.message));
     };
     // google handeler 
 

@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 
 const Login = () => {
-    const {userLogin} = useContext(resellContext);
+    const {userLogin, googleUser} = useContext(resellContext);
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
     const navigate = useNavigate();
@@ -33,6 +33,15 @@ const Login = () => {
         setError('');
     };
     // error state empty with onclick 
+
+    const handelGoogle = () =>{
+        googleUser()
+        .then(result =>{
+
+        })
+        .catch(error => setError(error));
+    };
+    // user login by google 
 
     return (
         <div className="hero lg:my-5">
@@ -74,7 +83,7 @@ const Login = () => {
                             </div>
                         </form>
                         <div className="divider">OR</div>
-                        <button className='btn btn-outline'>
+                        <button onClick={handelGoogle} className='btn btn-outline'>
                             <FaGoogle size={25} />
                             <span className='ml-2'>Login With Google</span>
                         </button>

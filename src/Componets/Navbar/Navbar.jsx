@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../Assets/logo/logo.png';
 import { resellContext } from '../../AuthContext/AutchContext';
+import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
     const { user, userLogout } = useContext(resellContext);
     const [categories, setCategories] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('http://localhost:5000/categories')
@@ -17,12 +19,16 @@ const Navbar = () => {
     // loading all cetegory name 
 
     const hadelLogout = () => {
-        userLogout();
+        userLogout()
+        .then(()=>{
+            navigate('/login');
+        })
     };
     // handel logout user 
 
     const menuItems = <>
-        <li tabIndex={0}>
+        <li><Link to='/home'>Home</Link></li>
+        <li className='lg:ml-5' tabIndex={0}>
             <span>
                 Category
             </span>
@@ -32,34 +38,35 @@ const Navbar = () => {
                 }
             </ul>
         </li>
-        <li><Link>Deshboard</Link></li>
-        <li className='ml-5'>{user?.email}</li>
+        <li><Link to='/deshboard'>Deshboard</Link></li>
+        <li title='Profile' className='lg:ml-5'>{user?.displayName}</li>
         {
             user?.uid ?
-                <li className='ml-5'>
-                    <button onClick={hadelLogout} className='btn btn-primary ml-5  rounded-lg'>Logout</button>
+                <li className='lg:ml-5'>
+                    <button onClick={hadelLogout} className='btn btn-primary lg:ml-5  rounded-lg mt-2 lg:mt-0'>Logout</button>
                 </li>
                 :
-                <li className='btn btn-primary ml-5 rounded-lg'><Link to='/login'>LogIn</Link></li>
+                <li className='btn btn-primary lg:ml-5 rounded-lg'><Link to='/login'>LogIn</Link></li>
         }
     </>
 
     return (
-        <div className="navbar justify-between z-50">
-            <div className="navbar-start">
-                <div className="dropdown">
+        <div className="navbar justify-between items-center z-50">
+            <div className="navbar-start flex ">
+                <div className="dropdown flex ">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                        <FaBars size={20} />
                     </label>
-                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-12 p-2 shadow bg-base-100 rounded-box w-52">
                         {menuItems}
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl">
-                    <img className='max-h-14 ' src={logo} alt="logo" />
+                <Link to='/' className="btn lg:pl-2 p-0 btn-ghost normal-case lg:text-xl">
+                    <img className='lg:max-h-14 max-h-10' src={logo} alt="logo" />
                     <span>Resell Phones</span>
                 </Link>
             </div>
+            <label htmlFor="deshboard-drawer" className="lg:hidden">Deshboard</label>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0 items-center">
                     {menuItems}
