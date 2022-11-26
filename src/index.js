@@ -4,15 +4,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AutchContext from './AuthContext/AutchContext';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AutchContext>
-      <App />
-      <Toaster />
-    </AutchContext>
+    <QueryClientProvider client={queryClient}>
+      <AutchContext>
+        <App />
+        <Toaster />
+      </AutchContext>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

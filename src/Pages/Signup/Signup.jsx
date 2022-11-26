@@ -107,8 +107,6 @@ const Signup = () => {
                                     })
                             }
                         })
-                    // toast.success("Buyer account successfull");
-                    // navigate('/');
                 }
             })
             .catch(error => setError(error.message));
