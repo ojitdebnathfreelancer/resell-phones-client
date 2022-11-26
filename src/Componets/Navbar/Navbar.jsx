@@ -15,7 +15,7 @@ const Navbar = () => {
             .then(data => {
                 setCategories(data);
             })
-    }, [user]);
+    }, []);
     // loading all cetegory name 
 
     const hadelLogout = () => {
@@ -51,6 +51,10 @@ const Navbar = () => {
         }
     </>
 
+        if(!categories){
+            return;
+        };
+        
     return (
         <div className="navbar justify-between items-center z-50">
             <div className="navbar-start flex ">

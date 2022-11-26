@@ -8,7 +8,8 @@ const googleProvider = new GoogleAuthProvider();
 
 const AutchContext = ({ children }) => {
 
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const userCreate = (email, password) =>{
         return createUserWithEmailAndPassword(auth,email, password)
@@ -38,12 +39,13 @@ const AutchContext = ({ children }) => {
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, (currentUser)=>{
             setUser(currentUser);
+            setLoading(false);
         })
         return ()=> unsubscribe();
     },[])
     // user ovjerver 
 
-    const authInfo = { user, userCreate, userLogin, googleUser, userLogout, updateUser};
+    const authInfo = { user, userCreate, userLogin, googleUser, userLogout, updateUser, loading};
 
     return (
         <div>

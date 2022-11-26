@@ -4,6 +4,7 @@ import MyBuyers from "../Layout/DeshboardLayout/MyBuyers/MyBuyers";
 import MyOrders from "../Layout/DeshboardLayout/MyOrders/MyOrders";
 import Main from "../Layout/Main/Main";
 import Category from "../Pages/Category/Category/Category";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
@@ -12,7 +13,8 @@ import PrivetRoute from "./PrivetRoute/PrivetRoute";
 const router = createBrowserRouter([
     {
         path:'/',
-        element:<Main></Main>, 
+        element:<Main></Main>,
+        errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
                 path:'/',
@@ -24,11 +26,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/category/:id',
-                loader: ({params})=> fetch(`http://localhost:5000/category/${params.id}`,{
-                    headers:{
-                        authorization: `Bearer ${localStorage.getItem("accessToken")}`
-                    }
-                }),
+                // path:'/category/:paramsId',
                 element:<PrivetRoute><Category></Category></PrivetRoute>
             },
             {
@@ -44,10 +42,11 @@ const router = createBrowserRouter([
     {
         path:'/deshboard',
         element:<DeshboardLayout></DeshboardLayout>,
+        errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
                 path:'/deshboard/myorders',
-                element:<MyOrders></MyOrders>
+                element:<PrivetRoute><MyOrders></MyOrders></PrivetRoute>
             },
             {
                 path:'/deshboard/mybuyers',
