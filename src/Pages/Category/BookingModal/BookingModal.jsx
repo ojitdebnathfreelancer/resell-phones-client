@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { resellContext } from '../../../AuthContext/AutchContext';
 import toast from 'react-hot-toast';
+import UseBuyer from '../../../Hooks/UseBuyer/UseBuyer';
 
 const BookingModal = ({ bookingProduct, setBookingProduct }) => {
     const { user } = useContext(resellContext);
     const { locaton, product_name, resell_price } = bookingProduct;
-
+    const [isBuyer] = UseBuyer(user?.email);
+    
     const SubmitBooking = event => {
         event.preventDefault();
         const form = event.target;
@@ -75,7 +77,7 @@ const BookingModal = ({ bookingProduct, setBookingProduct }) => {
                         </div>
 
                         <div className='text-center mt-5'>
-                            <button type='submit' className='btn btn-primary'>Book</button>
+                            <button disabled={isBuyer.isBuyer === false} type='submit' className='btn btn-primary'>Book</button>
                         </div>
                     </form>
                 </div>
