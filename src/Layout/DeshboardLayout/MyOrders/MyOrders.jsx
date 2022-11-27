@@ -21,12 +21,12 @@ const MyOrders = () => {
     if (isLoading) {
         return <Loader></Loader>
     };
-    
+
     return (
         <div>
-            <h1 className='text-center text-3xl mb-5'>Total oreder products {bookings.length}</h1>
+            <p className='text-center font-bold text-3xl my-2 capitalize underline'>Your total orders {bookings.length}</p>
             <div className="overflow-x-auto w-full">
-                <table className="table w-full">   
+                <table className="table w-full">
                     <thead>
                         <tr>
                             <th className='text-center'>

@@ -1,11 +1,10 @@
 import React from 'react';
 
-const Trow = ({ book }) => {
-    const { buyerEmail, buyerName, buyerPhone, location, price, productName, product_img, sellerName, sellerEamil, sellerNumber } = book;
-
+const MyBuyersCard = ({ buyer }) => {
+    const { buyerName, buyerEmail, buyerPhone, location, productName, price, product_img, sellerEamil, sellerName, sellerNumber } = buyer;
     return (
         <tr>
-            <th className='text-center'>
+            <th>
                 <label>
                     <button className='btn btn-primary'>Delete</button>
                 </label>
@@ -24,25 +23,25 @@ const Trow = ({ book }) => {
                 </div>
             </td>
             <td>
-                {buyerName}
-                <br />
-                <span className="badge badge-ghost badge-sm">{buyerEmail}</span>
-                <br />
-                <span className="badge badge-ghost badge-sm">{buyerPhone}</span>
-            </td>
-            <td>
                 {sellerName}
                 <br />
                 <span className="badge badge-ghost badge-sm">{sellerEamil}</span>
                 <br />
                 <span className="badge badge-ghost badge-sm">{sellerNumber}</span>
             </td>
+            <td>
+                {buyerName}
+                <br />
+                <span className="badge badge-ghost badge-sm">{buyerEmail}</span>
+                <br />
+                <span className="badge badge-ghost badge-sm">{buyerPhone}</span>
+            </td>
             <td>{location}</td>
-            <th className='text-center'>
-                <button className="btn btn-outline btn-primary btn-sm">Pay</button>
+            <th>
+                <button className="btn btn-outline btn-accent btn-xs">None paid</button>
             </th>
         </tr>
     );
 };
 
-export default Trow;
+export default MyBuyersCard;

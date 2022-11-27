@@ -39,6 +39,7 @@ const Navbar = () => {
                 }
             </ul>
         </li>
+        <li><Link to='/blog'>Blog</Link></li>
         {
             user?.uid &&
             <>
@@ -61,7 +62,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="navbar justify-between items-center z-50">
+        <div className="navbar justify-between items-center z-50 font-semibold">
             <div className="navbar-start flex ">
                 <div className="dropdown flex ">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -73,7 +74,7 @@ const Navbar = () => {
                 </div>
                 <Link to='/' className="btn lg:pl-2 p-0 btn-ghost normal-case lg:text-xl">
                     <img className='lg:max-h-14 max-h-10' src={logo} alt="logo" />
-                    <span>Resell Phones</span>
+                    <span className='font-bold font-mono text-primary'>Resell Phones</span>
                 </Link>
             </div>
             <label htmlFor="deshboard-drawer" className="lg:hidden">Deshboard</label>

@@ -17,6 +17,8 @@ import AllSellers from "../../Layout/DeshboardLayout/AllSellers/AllSellers";
 import AllBuyers from "../../Layout/DeshboardLayout/AllBuyers/AllBuyers";
 import ReportedItems from "../../Layout/DeshboardLayout/ReportedItems/ReportedItems";
 import AdminRoute from "../AdminRoute/AdminRoute";
+import Public from "../../Layout/DeshboardLayout/Public/Public";
+import Blog from "../../Pages/Blog/Blog";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +45,10 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <Signup></Signup>
+            },
+            {
+                path:'/blog',
+                element:<Blog></Blog>
             }
         ]
     },
@@ -51,6 +57,10 @@ const router = createBrowserRouter([
         element: <PrivetRoute><DeshboardLayout></DeshboardLayout></PrivetRoute>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
+            {
+                path:'/deshboard',
+                element:<Public></Public>
+            },
             {
                 path: '/deshboard/myorders',
                 element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>

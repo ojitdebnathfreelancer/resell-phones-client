@@ -18,17 +18,18 @@ const MyProducts = () => {
 
     return (
         <div className="overflow-x-auto w-full">
+            <p className='text-center font-bold text-3xl my-2 capitalize underline'>Your total products {Products.length}</p>
             <table className="table w-full">
                 <thead>
                     <tr>
                         <th>
                             <label>
-                                <input type="checkbox" className="checkbox" />
+                                <button className='btn btn-primary'>Delete All</button>
                             </label>
                         </th>
-                        <th>Name</th>
-                        <th>Job</th>
-                        <th>Favorite Color</th>
+                        <th>Product</th>
+                        <th>Your informations</th>
+                        <th>Location</th>
                         <th></th>
                     </tr>
                 </thead>

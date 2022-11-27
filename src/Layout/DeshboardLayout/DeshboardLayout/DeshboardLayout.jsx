@@ -23,7 +23,7 @@ const DeshboardLayout = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="deshboard-drawer" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-48 bg-white lg:bg-inherit text-base-content">
+                    <ul className="menu p-4 w-52 bg-white lg:bg-inherit text-base-content font-bold lg:text-lg">
 
                         {
                             isBuyer.isBuyer &&

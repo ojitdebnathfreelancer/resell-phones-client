@@ -1,36 +1,40 @@
 import React from 'react';
 
 const MyProductCard = ({product}) => {
-    console.log(product)
-    const {category_id, condition } = product;
+    const {condition, img, locaton, number, post_time, product_name,resell_price, sellerEmail,seller_name, used_time } = product;
     return (
         <tr>
             <th>
                 <label>
-                    <input type="checkbox" className="checkbox" />
+                    <button className='btn btn-primary'>Delete</button>
                 </label>
             </th>
             <td>
                 <div className="flex items-center space-x-3">
                     <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                            <img src="/tailwind-css-component-profile-5@56w.png" alt="Avatar Tailwind CSS Component" />
+                        <div className="mask mask-squircle w-16 h-16">
+                            <img src={img} alt="product imgage" />
                         </div>
                     </div>
                     <div>
-                        <div className="font-bold">Yancy Tear</div>
-                        <div className="text-sm opacity-50">Brazil</div>
+                        <div className="font-bold">{product_name}</div>
+                        <div className="text-sm opacity-50">{resell_price} Taka</div>
+                        <div className="text-sm opacity-50">{condition}</div>
+                        <div className="text-sm opacity-50">{used_time}</div>
+                        <div className="text-sm opacity-50">{post_time}</div>
                     </div>
                 </div>
             </td>
             <td>
-                Wyman-Ledner
+                {seller_name}
                 <br />
-                <span className="badge badge-ghost badge-sm">Community Outreach Specialist</span>
+                <span className="badge badge-ghost badge-sm">{sellerEmail}</span>
+                <br />
+                <span className="badge badge-ghost badge-sm">{number}</span>
             </td>
-            <td>Indigo</td>
+            <td>{locaton}</td>
             <th>
-                <button className="btn btn-ghost btn-xs">details</button>
+                <button className="btn btn-outline btn-accent btn-xs">Edit</button>
             </th>
         </tr>
     );

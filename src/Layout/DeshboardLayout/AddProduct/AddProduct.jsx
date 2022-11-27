@@ -80,7 +80,7 @@ const AddProduct = () => {
         <div className="lg:my-3">
             <div className="hero-content flex-col lg:flex-row">
                 <div className="card flex-shrink-0 w-full max-w-2xl shadow-2xl bg-base-100">
-                    <p className='font-bold text-center text-3xl mt-2'>Write you product informations</p>
+                    <p className='font-bold text-center text-3xl mt-2'>Post Product With Informations</p>
                     <div className="card-body">
                         <form onSubmit={handleSubmit(Product)}>
                             <div className='lg:grid md:grid grid-cols-2 gap-x-5'>
