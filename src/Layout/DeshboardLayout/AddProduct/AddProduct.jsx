@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { resellContext } from '../../../AuthContext/AutchContext';
 
 const AddProduct = () => {
-
+    const {user} = useContext(resellContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
     const Product = data => {
         if (data.category === 'apple') {
@@ -48,9 +52,26 @@ const AddProduct = () => {
                     used_time: data.used,
                     post_time: mainTime,
                     condition: data.condition,
-                    discription: data.discription
+                    discription: data.discription,
+                    sellerEmail:user.email
                 };
-                console.log(product);
+
+                fetch(`http://localhost:5000/addproduct`, {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `Bearer ${localStorage.getItem("accessToken")}`
+                    },
+                    body: JSON.stringify(product)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.acknowledged) {
+                            navigate('/deshboard/myproducts');
+                            toast.success('Your product added')
+                        }
+                    })
+                // post product 
             })
     };
     // product info 

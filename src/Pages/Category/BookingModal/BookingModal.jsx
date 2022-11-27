@@ -5,7 +5,7 @@ import UseBuyer from '../../../Hooks/UseBuyer/UseBuyer';
 
 const BookingModal = ({ bookingProduct, setBookingProduct }) => {
     const { user } = useContext(resellContext);
-    const { locaton, product_name, resell_price } = bookingProduct;
+    const { locaton, product_name, resell_price, seller_name, sellerEmail, number} = bookingProduct;
     const [isBuyer] = UseBuyer(user?.email);
     
     const SubmitBooking = event => {
@@ -18,7 +18,10 @@ const BookingModal = ({ bookingProduct, setBookingProduct }) => {
             buyerName: form.buyerName.value,
             buyerEmail: form.buyerEmail.value,
             buyerPhone: form.buyerPhone.value,
-            product_img: bookingProduct.img
+            product_img: bookingProduct.img,
+            sellerName:seller_name,
+            sellerEamil:sellerEmail,
+            sellerNumber:number
         };
         setBookingProduct(null);
         fetch('http://localhost:5000/booking', {
@@ -78,6 +81,10 @@ const BookingModal = ({ bookingProduct, setBookingProduct }) => {
 
                         <div className='text-center mt-5'>
                             <button disabled={isBuyer.isBuyer === false} type='submit' className='btn btn-primary'>Book</button>
+                            {
+                                !isBuyer.isBuyer && 
+                                <p>You are not a buyer so you can't buy anything</p>
+                            }
                         </div>
                     </form>
                 </div>

@@ -35,7 +35,8 @@ const MyOrders = () => {
                                 </label>
                             </th>
                             <th>Product</th>
-                            <th>Buyer Details</th>
+                            <th>Your Details</th>
+                            <th>Seller Details</th>
                             <th>Location</th>
                             <th className='text-center'>Pyment</th>
                         </tr>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Trow = ({ book }) => {
-    const { buyerEmail, buyerName, buyerPhone, location, price, productName, product_img } = book;
+    const { buyerEmail, buyerName, buyerPhone, location, price, productName, product_img, sellerName, sellerEamil, sellerNumber } = book;
 
     return (
         <tr>
@@ -29,6 +29,13 @@ const Trow = ({ book }) => {
                 <span className="badge badge-ghost badge-sm">{buyerEmail}</span>
                 <br />
                 <span className="badge badge-ghost badge-sm">{buyerPhone}</span>
+            </td>
+            <td>
+                {sellerName}
+                <br />
+                <span className="badge badge-ghost badge-sm">{sellerEamil}</span>
+                <br />
+                <span className="badge badge-ghost badge-sm">{sellerNumber}</span>
             </td>
             <td>{location}</td>
             <th className='text-center'>
