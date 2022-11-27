@@ -4,19 +4,23 @@ import { resellContext } from '../../../AuthContext/AutchContext';
 import MyBuyersCard from './MyBuyersCard/MyBuyersCard';
 
 const MyBuyers = () => {
-    const {user} = useContext(resellContext);
+    const { user } = useContext(resellContext);
 
-    const {data:buyers =[]} = useQuery({
-        queryKey:['mybuyers', user],
-        queryFn: () => fetch(`http://localhost:5000/mybuyers?email=${user.email}`)
-        .then(res => res.json())
+    const { data: buyers = [] } = useQuery({
+        queryKey: ['mybuyers', user],
+        queryFn: () => fetch(`http://localhost:5000/mybuyers?email=${user.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
+            .then(res => res.json())
     });
     // product booked buyers for seller 
 
     return (
         <div className="overflow-x-auto w-full">
-            <p className='text-center font-bold text-3xl my-2 capitalize underline'>Your total products buyers {buyers.length}</p>
-            <table className="table w-full"> 
+            <p className='text-center font-bold text-3xl my-2 capitalize underline'>Your total buyers {buyers.length}</p>
+            <table className="table w-full">
                 <thead>
                     <tr>
                         <th>

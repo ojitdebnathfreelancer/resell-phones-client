@@ -1,13 +1,27 @@
 import React from 'react';
 
-const Trow = ({ book }) => {
-    const { buyerEmail, buyerName, buyerPhone, location, price, productName, product_img, sellerName, sellerEamil, sellerNumber } = book;
+const Trow = ({ book, refetch }) => {
+    const { buyerEmail, buyerName, buyerPhone, location, price, productName, product_img, sellerName, sellerEamil, sellerNumber, _id } = book;
+
+
+    const handelDelete = (id) => {
+        fetch(`http://localhost:5000/bookingdelete/${id}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
+            .then(res => res.json())
+            .then(() => {
+                refetch();
+            })
+    };
+    // delete single products  
 
     return (
         <tr>
             <th className='text-center'>
                 <label>
-                    <button className='btn btn-primary'>Delete</button>
+                    <button onClick={() => handelDelete(_id)} className='btn btn-primary'>Delete</button>
                 </label>
             </th>
             <td>

@@ -33,8 +33,11 @@ const MyProductCard = ({product}) => {
                 <span className="badge badge-ghost badge-sm">{number}</span>
             </td>
             <td>{locaton}</td>
-            <th>
-                <button className="btn btn-outline btn-accent btn-xs">Edit</button>
+            <td className='text-center'>
+                Aivalable
+            </td>
+            <th className='text-center'>
+                <button className="btn btn-outline btn-accent btn-xs">Run Ads</button>
             </th>
         </tr>
     );

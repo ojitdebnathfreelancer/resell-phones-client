@@ -30,7 +30,8 @@ const MyProducts = () => {
                         <th>Product</th>
                         <th>Your informations</th>
                         <th>Location</th>
-                        <th></th>
+                        <th className='text-center'>Buy Status</th>
+                        <th className='text-center'>Run Advertisment</th>
                     </tr>
                 </thead>
                 <tbody>
