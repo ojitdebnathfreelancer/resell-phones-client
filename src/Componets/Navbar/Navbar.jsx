@@ -20,10 +20,10 @@ const Navbar = () => {
 
     const hadelLogout = () => {
         userLogout()
-        .then(()=>{
-            localStorage.clear();
-            navigate('/login');
-        })
+            .then(() => {
+                localStorage.clear();
+                navigate('/login');
+            })
     };
     // handel logout user 
 
@@ -39,8 +39,13 @@ const Navbar = () => {
                 }
             </ul>
         </li>
-        <li><Link to='/deshboard'>Deshboard</Link></li>
-        <li title='Profile' className='lg:ml-5'>{user?.displayName}</li>
+        {
+            user?.uid &&
+            <>
+                <li><Link to='/deshboard'>Deshboard</Link></li>
+                <li title='Profile' className='lg:ml-5'>{user?.displayName}</li>
+            </>
+        }
         {
             user?.uid ?
                 <li className='lg:ml-5'>
@@ -51,10 +56,10 @@ const Navbar = () => {
         }
     </>
 
-        if(!categories){
-            return;
-        };
-        
+    if (!categories) {
+        return;
+    };
+
     return (
         <div className="navbar justify-between items-center z-50">
             <div className="navbar-start flex ">

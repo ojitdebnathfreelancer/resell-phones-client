@@ -16,22 +16,23 @@ const BookingModal = ({ bookingProduct, setBookingProduct }) => {
             buyerName: form.buyerName.value,
             buyerEmail: form.buyerEmail.value,
             buyerPhone: form.buyerPhone.value,
-            product_img:bookingProduct.img
+            product_img: bookingProduct.img
         };
         setBookingProduct(null);
-        fetch('http://localhost:5000/booking',{
-            method:'POST',
-            headers:{
-                'content-type':'application/json'
+        fetch('http://localhost:5000/booking', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
             },
             body: JSON.stringify(booked)
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.acknowledged){
-                toast.success('Product is booked')
-            }
-        });
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Product is booked')
+                }
+            });
         // booking data sent server 
     };
     // submit booking data 

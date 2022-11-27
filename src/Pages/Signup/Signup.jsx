@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import { resellContext } from '../../AuthContext/AutchContext';
 import toast from 'react-hot-toast';
+import UseToken from '../../Hooks/UseToken/UseToken';
 
 const Signup = () => {
     const { userCreate, googleUser, updateUser } = useContext(resellContext);
@@ -11,6 +12,17 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const [tokenUser, setTokenUser] = useState('');
+
+    const [token] = UseToken(tokenUser);
+
+    useEffect(() => {
+        if (token) {
+            navigate('/');
+            toast.success('User created successfull');
+        }
+    }, [token, navigate])
 
     const handelSignup = (data) => {
         const savUser = {
@@ -20,98 +32,60 @@ const Signup = () => {
         };
 
         userCreate(data.email, data.password)
-            .then(result => {
-                const user = result.user;
-                if (user) {
-                    update(data.name, savUser);
-                }
-            })
-            .catch(error => setError(error));
-    };
-    // login data for handel 
-
-    const update = (name, saveUser) => {
-        const profile = {
-            displayName: name,
-            photoURL: ''
-        };
-
-        updateUser(profile)
             .then(() => {
-                fetch('http://localhost:5000/users', {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify(saveUser)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        const currentUser = { email: saveUser.email }
-                        if (data.acknowledged) {
-                            fetch('http://localhost:5000/jwt', {
-                                method: 'POST',
-                                headers: {
-                                    "content-type": "application/json"
-                                },
-                                body: JSON.stringify(currentUser)
-                            })
-                                .then(res => res.json())
-                                .then(data => {
-                                    localStorage.setItem('accessToken', data.token);
-                                    toast.success('User created successfull');
-                                    navigate('/');
-                                })
-                        }
-                    })
-
+                update(data.name);
             })
             .catch(error => setError(error));
+        // created user 
+
+        const update = (name) => {
+            const profile = {
+                displayName: name,
+                photoURL: ''
+            };
+
+            updateUser(profile)
+                .then(() => {
+                    saveUserDb(savUser);
+                })
+                .catch(error => setError(error));
+        };
+        // update user handel 
     };
-    // update user handel 
+    // sign up user with new account create and update  
+
 
     const handelGoogle = () => {
         googleUser()
             .then(result => {
                 const user = result.user;
-                if (user) {
-                    const Guser = {
-                        name: user.displayName,
-                        email: user.email,
-                        role: 'buyer'
-                    };
-
-                    fetch('http://localhost:5000/users', {
-                        method: "POST",
-                        headers: {
-                            "content-type": "application/json"
-                        },
-                        body: JSON.stringify(Guser)
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            const currentUser = { email: Guser.email }
-                            if (data.acknowledged) {
-                                fetch('http://localhost:5000/jwt', {
-                                    method: 'POST',
-                                    headers: {
-                                        "content-type": "application/json"
-                                    },
-                                    body: JSON.stringify(currentUser)
-                                })
-                                    .then(res => res.json())
-                                    .then(data => {
-                                        localStorage.setItem('accessToken', data.token);
-                                        toast.success("Buyer account successfull");
-                                        navigate('/');
-                                    })
-                            }
-                        })
+                const Guser = {
+                    name: user.displayName,
+                    email: user.email,
+                    role: 'buyer'
                 }
+                setTokenUser(user.email);
+                saveUserDb(Guser);
             })
             .catch(error => setError(error.message));
     };
-    // google handeler 
+    // google sign up user with new account and updated 
+
+    const saveUserDb = (user) => {
+        fetch('http://localhost:5000/users', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(() => {
+                setTokenUser(user.email);
+            })
+    }
+    // user save to db with some user info
 
     return (
         <div className="hero lg:my-3">

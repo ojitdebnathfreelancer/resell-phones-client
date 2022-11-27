@@ -5,9 +5,9 @@ const Trow = ({ book }) => {
 
     return (
         <tr>
-            <th>
+            <th className='text-center'>
                 <label>
-                    <input type="checkbox" className="checkbox" />
+                    <button className='btn btn-primary'>Delete</button>
                 </label>
             </th>
             <td>
@@ -31,8 +31,8 @@ const Trow = ({ book }) => {
                 <span className="badge badge-ghost badge-sm">{buyerPhone}</span>
             </td>
             <td>{location}</td>
-            <th>
-                <button className="btn btn-ghost btn-xs">details</button>
+            <th className='text-center'>
+                <button className="btn btn-outline btn-primary btn-sm">Pay</button>
             </th>
         </tr>
     );

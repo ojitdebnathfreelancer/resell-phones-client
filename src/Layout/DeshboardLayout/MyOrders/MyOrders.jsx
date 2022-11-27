@@ -7,9 +7,9 @@ import Trow from './Trow/Trow';
 const MyOrders = () => {
     const { user } = useContext(resellContext);
 
-    const { data: bookings = [], isLoading, refetch } = useQuery({
+    const { data: bookings = [], isLoading } = useQuery({
         queryKey: ['booking', user],
-        queryFn: () => fetch('http://localhost:5000/booking', {
+        queryFn: () => fetch(`http://localhost:5000/booking?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
@@ -21,22 +21,23 @@ const MyOrders = () => {
     if (isLoading) {
         return <Loader></Loader>
     };
+    
     return (
         <div>
-            <h1>this is orders {bookings.length}</h1>
+            <h1 className='text-center text-3xl mb-5'>Total oreder products {bookings.length}</h1>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">   
                     <thead>
                         <tr>
-                            <th>
+                            <th className='text-center'>
                                 <label>
-                                    <input type="checkbox" className="checkbox" />
+                                    <button className='btn btn-primary'>Delete All</button>
                                 </label>
                             </th>
                             <th>Product</th>
                             <th>Buyer Details</th>
                             <th>Location</th>
-                            <th></th>
+                            <th className='text-center'>Pyment</th>
                         </tr>
                     </thead>
                     <tbody>

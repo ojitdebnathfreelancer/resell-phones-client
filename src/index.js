@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AutchContext from './AuthContext/AutchContext';
-import { Toaster } from 'react-hot-toast';
 import {
   QueryClient,
   QueryClientProvider,
@@ -18,7 +17,6 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <AutchContext>
         <App />
-        <Toaster />
       </AutchContext>
     </QueryClientProvider>
   </React.StrictMode>
