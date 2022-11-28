@@ -10,7 +10,7 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:5000/categories')
+        fetch('https://resell-phones-server.vercel.app/categories')
             .then(res => res.json())
             .then(data => {
                 setCategories(data);

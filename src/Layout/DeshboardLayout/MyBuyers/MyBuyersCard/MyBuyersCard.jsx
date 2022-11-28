@@ -6,7 +6,7 @@ const MyBuyersCard = ({ buyer, refetch }) => {
     const { buyerName, buyerEmail, buyerPhone, location, productName, price, product_img, sellerEamil, sellerName, sellerNumber, _id, pay } = buyer;
 
     const handelDelete = (id) => {
-        fetch(`http://localhost:5000/deletemybuyer/${id}`, {
+        fetch(`https://resell-phones-server.vercel.app/deletemybuyer/${id}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`

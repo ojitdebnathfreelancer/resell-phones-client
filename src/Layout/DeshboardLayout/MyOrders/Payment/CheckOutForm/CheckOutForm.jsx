@@ -13,7 +13,7 @@ const CheckOutForm = ({ paymentProduct }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://resell-phones-server.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const CheckOutForm = ({ paymentProduct }) => {
         if (paymentIntent.status === 'succeeded') {
             setTrId(paymentIntent.id);
 
-            fetch(`http://localhost:5000/bookedpaymentupdate/${_id}`, {
+            fetch(`https://resell-phones-server.vercel.app/bookedpaymentupdate/${_id}`, {
                 method: "PUT",
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("accessToken")}`
@@ -93,7 +93,7 @@ const CheckOutForm = ({ paymentProduct }) => {
             })
                 .then(res => res.json())
                 .then(() => {
-                    fetch(`http://localhost:5000/productpaymentupdate`, {
+                    fetch(`https://resell-phones-server.vercel.app/productpaymentupdate`, {
                         method:"PATCH",
                         headers: {
                             "content-type": "application/json",

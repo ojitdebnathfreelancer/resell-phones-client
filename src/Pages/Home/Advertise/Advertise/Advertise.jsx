@@ -7,7 +7,7 @@ const Advertise = () => {
 
     const { data: adsProducts = [] } = useQuery({
         queryKey: ['advertise'],
-        queryFn: () => fetch(`http://localhost:5000/advertise`)
+        queryFn: () => fetch(`https://resell-phones-server.vercel.app/advertise`)
             .then(res => res.json())
     });
     // advetise all products 

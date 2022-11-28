@@ -58,7 +58,7 @@ const AddProduct = () => {
                     pay:false
                 };
 
-                fetch(`http://localhost:5000/addproduct`, {
+                fetch(`https://resell-phones-server.vercel.app/addproduct`, {
                     method: "POST",
                     headers: {
                         'content-type': 'application/json',

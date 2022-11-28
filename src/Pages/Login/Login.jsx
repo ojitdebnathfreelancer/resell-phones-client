@@ -60,7 +60,7 @@ const Login = () => {
     // user login with google 
 
     const saveUserDb = (user) => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://resell-phones-server.vercel.app/users', {
             method: "POST",
             headers: {
                 "content-type": "application/json",

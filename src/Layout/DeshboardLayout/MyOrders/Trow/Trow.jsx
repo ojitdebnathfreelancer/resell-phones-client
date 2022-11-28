@@ -7,7 +7,7 @@ const Trow = ({ book, refetch }) => {
 
 
     const handelDelete = (id) => {
-        fetch(`http://localhost:5000/bookingdelete/${id}`, {
+        fetch(`https://resell-phones-server.vercel.app/bookingdelete/${id}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`

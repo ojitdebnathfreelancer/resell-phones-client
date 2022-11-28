@@ -9,7 +9,7 @@ const MyBuyers = () => {
 
     const { data: buyers = [], refetch } = useQuery({
         queryKey: ['mybuyers', user],
-        queryFn: () => fetch(`http://localhost:5000/mybuyers?email=${user.email}`, {
+        queryFn: () => fetch(`https://resell-phones-server.vercel.app/mybuyers?email=${user.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
@@ -19,7 +19,7 @@ const MyBuyers = () => {
     // product booked buyers for seller 
 
     const handelDeleteAllBuyers = () => {
-        fetch(`http://localhost:5000/deletemyallbuyers/${user?.email}`, {
+        fetch(`https://resell-phones-server.vercel.app/deletemyallbuyers/${user?.email}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`

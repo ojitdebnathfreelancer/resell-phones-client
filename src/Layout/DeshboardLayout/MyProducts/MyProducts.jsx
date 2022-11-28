@@ -9,7 +9,7 @@ const MyProducts = () => {
 
     const { data: Products = [], refetch } = useQuery({
         queryKey: ['myproducts', user],
-        queryFn: () => fetch(`http://localhost:5000/myproducts?email=${user?.email}`, {
+        queryFn: () => fetch(`https://resell-phones-server.vercel.app/myproducts?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
@@ -20,7 +20,7 @@ const MyProducts = () => {
 
     const handelDeleteAllProducts = () => {
         alert("Are you want to delete you all products?")
-        fetch(`http://localhost:5000/myallproductsdelete?email=${user?.email}`, {
+        fetch(`https://resell-phones-server.vercel.app/myallproductsdelete?email=${user?.email}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`

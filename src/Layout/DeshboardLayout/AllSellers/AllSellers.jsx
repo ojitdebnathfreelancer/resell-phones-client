@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 const AllSellers = () => {
     const { data: sellers = [], refetch } = useQuery({
         queryKey: ['allsellers'],
-        queryFn: () => fetch('http://localhost:5000/allseller', {
+        queryFn: () => fetch('https://resell-phones-server.vercel.app/allseller', {
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
@@ -15,7 +15,7 @@ const AllSellers = () => {
     // load all sellers 
 
     const handeleDelteSeller = (id) => {
-        fetch(`http://localhost:5000/sellerdelete/${id}`, {
+        fetch(`https://resell-phones-server.vercel.app/sellerdelete/${id}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
@@ -31,7 +31,7 @@ const AllSellers = () => {
 
     const handleDeleteAllSeller = () => {
         alert('Are you want to delete all sellers');
-        fetch(`http://localhost:5000/allsellerdelete`, {
+        fetch(`https://resell-phones-server.vercel.app/allsellerdelete`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
@@ -46,7 +46,7 @@ const AllSellers = () => {
     // all seller delete , yet not use this 
 
     const handelVerifySeller = (email, id) => {
-        fetch(`http://localhost:5000/sellerverify?email=${email}`, {
+        fetch(`https://resell-phones-server.vercel.app/sellerverify?email=${email}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
@@ -61,7 +61,7 @@ const AllSellers = () => {
     // seller vefify 
 
     const userSellerVeify = (id) => {
-        fetch(`http://localhost:5000/usersellerverify/${id}`, {
+        fetch(`https://resell-phones-server.vercel.app/usersellerverify/${id}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`

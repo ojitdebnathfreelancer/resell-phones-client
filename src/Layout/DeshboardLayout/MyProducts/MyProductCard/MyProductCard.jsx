@@ -6,7 +6,7 @@ const MyProductCard = ({ product, refetch }) => {
     const { condition, img, locaton, number, post_time, product_name, resell_price, sellerEmail, seller_name, used_time, _id, ads, pay } = product;
 
     const handeleteMyProductDelete = (id) => {
-        fetch(`http://localhost:5000/myproductdelete/${id}`, {
+        fetch(`https://resell-phones-server.vercel.app/myproductdelete/${id}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
@@ -21,7 +21,7 @@ const MyProductCard = ({ product, refetch }) => {
     // delete sngle product 
 
     const advetiseOn = product => {
-        fetch(`http://localhost:5000/advertiseon/${product._id}`, {
+        fetch(`https://resell-phones-server.vercel.app/advertiseon/${product._id}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`

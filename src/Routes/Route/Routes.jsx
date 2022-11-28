@@ -92,7 +92,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/deshboard/payment/:id',
-                loader: ({params})=> fetch(`http://localhost:5000/payment/${params.id}`),
+                loader: ({params})=> fetch(`https://resell-phones-server.vercel.app/payment/${params.id}`),
                 element:<Payment></Payment>
             }
         ]

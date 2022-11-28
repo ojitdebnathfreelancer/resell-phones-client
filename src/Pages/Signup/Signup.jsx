@@ -72,7 +72,7 @@ const Signup = () => {
     // google sign up user with new account and updated 
 
     const saveUserDb = (Suser) => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://resell-phones-server.vercel.app/users', {
             method: "POST",
             headers: {
                 "content-type": "application/json",

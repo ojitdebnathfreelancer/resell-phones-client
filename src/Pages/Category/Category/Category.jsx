@@ -11,7 +11,7 @@ const Category = () => {
 
     const { data: products = [], isLoading } = useQuery({
         queryKey: ['category', paramsId],
-        queryFn: () => fetch(`http://localhost:5000/category/${paramsId.id}`, {
+        queryFn: () => fetch(`https://resell-phones-server.vercel.app/category/${paramsId.id}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }

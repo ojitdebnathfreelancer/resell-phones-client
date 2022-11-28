@@ -10,7 +10,7 @@ const MyOrders = () => {
 
     const { data: bookings = [], isLoading, refetch } = useQuery({
         queryKey: ['booking', user],
-        queryFn: () => fetch(`http://localhost:5000/booking?email=${user?.email}`, {
+        queryFn: () => fetch(`https://resell-phones-server.vercel.app/booking?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
@@ -20,7 +20,7 @@ const MyOrders = () => {
     // tanstake query for loading booking 
 
     const handelDeleteall = (email) => {
-        fetch(`http://localhost:5000/bookingdeleteall/${email}`, {
+        fetch(`https://resell-phones-server.vercel.app/bookingdeleteall/${email}`, {
             method:"DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
