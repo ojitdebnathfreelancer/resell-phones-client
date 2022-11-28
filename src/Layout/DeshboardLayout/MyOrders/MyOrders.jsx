@@ -20,6 +20,7 @@ const MyOrders = () => {
 
     const handelDeleteall = (email) => {
         fetch(`http://localhost:5000/bookingdeleteall/${email}`, {
+            method:"DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }

@@ -6,6 +6,7 @@ const Trow = ({ book, refetch }) => {
 
     const handelDelete = (id) => {
         fetch(`http://localhost:5000/bookingdelete/${id}`, {
+            method:"DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }

@@ -1,12 +1,30 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 
-const MyBuyersCard = ({ buyer }) => {
-    const { buyerName, buyerEmail, buyerPhone, location, productName, price, product_img, sellerEamil, sellerName, sellerNumber } = buyer;
+const MyBuyersCard = ({ buyer, refetch }) => {
+
+    const { buyerName, buyerEmail, buyerPhone, location, productName, price, product_img, sellerEamil, sellerName, sellerNumber, _id } = buyer;
+
+    const handelDelete = (id) => {
+        fetch(`http://localhost:5000/deletemybuyer/${id}`, {
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
+            .then(res => res.json())
+            .then(() => {
+                toast.success('One buyer deleted');
+                refetch();
+            })
+    };
+    // delete single buyer 
+
     return (
         <tr>
             <th>
                 <label>
-                    <button className='btn btn-primary'>Delete</button>
+                    <button onClick={() => handelDelete(_id)} className='btn btn-primary'>Delete</button>
                 </label>
             </th>
             <td>
