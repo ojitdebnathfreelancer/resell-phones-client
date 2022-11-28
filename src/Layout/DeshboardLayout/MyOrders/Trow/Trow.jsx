@@ -1,4 +1,5 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const Trow = ({ book, refetch }) => {
     const { buyerEmail, buyerName, buyerPhone, location, price, productName, product_img, sellerName, sellerEamil, sellerNumber, _id } = book;
@@ -13,6 +14,7 @@ const Trow = ({ book, refetch }) => {
         })
             .then(res => res.json())
             .then(() => {
+                toast.success('You one bookd product deleted')
                 refetch();
             })
     };

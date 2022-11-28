@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const AllSellers = () => {
-    const { data: sellers = [] } = useQuery({
+    const { data: sellers = [], refetch } = useQuery({
         queryKey: ['allsellers'],
         queryFn: () => fetch('http://localhost:5000/allseller', {
             headers: {
@@ -11,6 +12,38 @@ const AllSellers = () => {
         })
             .then(res => res.json())
     });
+    // load all sellers 
+
+    const handeleDelteSeller = (id) => {
+        fetch(`http://localhost:5000/sellerdelete/${id}`, {
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success('One seller deleted');
+                refetch();
+            })
+    };
+    // delete a single seller 
+
+    const handleDeleteAllSeller = () => {
+        alert('Are you want to delete all sellers');
+        fetch(`http://localhost:5000/allsellerdelete`, {
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            toast.success("All sellers deleted");
+            refetch();
+        })
+    };
+    // all seller delete 
 
     return (
         <div className="overflow-x-auto w-full">
@@ -21,7 +54,7 @@ const AllSellers = () => {
                         <th>Role</th>
                         <th className='text-center'>Verify</th>
                         <th className='text-center'>
-                            <button className="btn btn-outline btn-accent btn-sm">Delete All</button>
+                            <button onClick={handleDeleteAllSeller} className="btn btn-outline btn-accent btn-sm">Delete All</button>
                         </th>
                     </tr>
                 </thead>
@@ -38,7 +71,7 @@ const AllSellers = () => {
                                 <button className='btn btn-outline btn-primary btn-sm'>Verify</button>
                             </td>
                             <th className='text-center'>
-                                <button className="btn btn-outline btn-accent btn-sm">Delete</button>
+                                <button onClick={() => handeleDelteSeller(seller._id)} className="btn btn-outline btn-accent btn-sm">Delete</button>
                             </th>
                         </tr>)
                     }

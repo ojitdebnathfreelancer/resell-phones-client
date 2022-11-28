@@ -64,25 +64,25 @@ const Signup = () => {
                     email: user.email,
                     role: 'buyer'
                 }
-                setTokenUser(user.email);
                 saveUserDb(Guser);
+                setTokenUser(user?.email);
             })
             .catch(error => setError(error.message));
     };
     // google sign up user with new account and updated 
 
-    const saveUserDb = (user) => {
+    const saveUserDb = (Suser) => {
         fetch('http://localhost:5000/users', {
             method: "POST",
             headers: {
                 "content-type": "application/json",
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(Suser)
         })
             .then(res => res.json())
             .then(() => {
-                setTokenUser(user.email);
+                setTokenUser(Suser?.email);
             })
     }
     // user save to db with some user info

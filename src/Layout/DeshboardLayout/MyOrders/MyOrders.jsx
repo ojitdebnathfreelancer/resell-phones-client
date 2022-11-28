@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { resellContext } from '../../../AuthContext/AutchContext';
 import Loader from '../../../Componets/Loader/Loader';
 import Trow from './Trow/Trow';
@@ -27,6 +28,7 @@ const MyOrders = () => {
         })
             .then(res => res.json())
             .then(() => {
+                toast.success("You all bookd productd deleted")
                 refetch();
             })
     };
