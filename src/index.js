@@ -4,19 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AutchContext from './AuthContext/AutchContext';
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 
 const queryClient = new QueryClient();
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIP_pay);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AutchContext>
-        <App />
+        <Elements stripe={stripePromise}>
+          <App />
+        </Elements>
       </AutchContext>
     </QueryClientProvider>
   </React.StrictMode>

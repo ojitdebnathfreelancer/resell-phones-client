@@ -26,6 +26,12 @@ const Category = () => {
     };
 
 
+    if (products.length === 0) {
+        return <p className='text-primary font-bold text-3xl text-center mt-60 capitalize'>This Category products unavailable</p>
+
+    }
+
+
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5 px-5 my-5'>
             {

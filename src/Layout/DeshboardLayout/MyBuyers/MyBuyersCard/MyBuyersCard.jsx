@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 
 const MyBuyersCard = ({ buyer, refetch }) => {
 
-    const { buyerName, buyerEmail, buyerPhone, location, productName, price, product_img, sellerEamil, sellerName, sellerNumber, _id } = buyer;
+    const { buyerName, buyerEmail, buyerPhone, location, productName, price, product_img, sellerEamil, sellerName, sellerNumber, _id, pay } = buyer;
 
     const handelDelete = (id) => {
         fetch(`http://localhost:5000/deletemybuyer/${id}`, {
@@ -56,7 +56,11 @@ const MyBuyersCard = ({ buyer, refetch }) => {
             </td>
             <td>{location}</td>
             <th>
-                <button className="btn btn-outline btn-accent btn-xs">None paid</button>
+                <button className="btn btn-outline btn-accent btn-xs capitalize">
+                    {
+                        pay? "Paid" : "None paid" 
+                    }
+                </button>
             </th>
         </tr>
     );

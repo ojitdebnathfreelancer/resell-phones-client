@@ -21,7 +21,8 @@ const BookingModal = ({ bookingProduct, setBookingProduct }) => {
             product_img: bookingProduct.img,
             sellerName:seller_name,
             sellerEamil:sellerEmail,
-            sellerNumber:number
+            sellerNumber:number,
+            pay:false
         };
         setBookingProduct(null);
         fetch('http://localhost:5000/booking', {

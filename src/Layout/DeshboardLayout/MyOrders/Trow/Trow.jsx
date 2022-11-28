@@ -1,13 +1,14 @@
 import React from 'react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const Trow = ({ book, refetch }) => {
-    const { buyerEmail, buyerName, buyerPhone, location, price, productName, product_img, sellerName, sellerEamil, sellerNumber, _id } = book;
+    const { buyerEmail, buyerName, buyerPhone, location, price, productName, product_img, sellerName, sellerEamil, sellerNumber, _id, pay } = book;
 
 
     const handelDelete = (id) => {
         fetch(`http://localhost:5000/bookingdelete/${id}`, {
-            method:"DELETE",
+            method: "DELETE",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
@@ -56,7 +57,14 @@ const Trow = ({ book, refetch }) => {
             </td>
             <td>{location}</td>
             <th className='text-center'>
-                <button className="btn btn-outline btn-primary btn-sm">Pay</button>
+                {
+                    pay ?
+                        <button className="text-green-500 font-bold">Paid</button>
+                        :
+                        <Link to={`/deshboard/payment/${_id}`}>
+                            <button className="btn btn-outline btn-primary btn-sm">Pay</button>
+                        </Link>
+                }
             </th>
         </tr>
     );

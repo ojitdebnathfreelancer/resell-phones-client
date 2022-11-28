@@ -19,6 +19,7 @@ import ReportedItems from "../../Layout/DeshboardLayout/ReportedItems/ReportedIt
 import AdminRoute from "../AdminRoute/AdminRoute";
 import Public from "../../Layout/DeshboardLayout/Public/Public";
 import Blog from "../../Pages/Blog/Blog";
+import Payment from "../../Layout/DeshboardLayout/MyOrders/Payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -88,6 +89,11 @@ const router = createBrowserRouter([
             {
                 path:'/deshboard/reported',
                 element:<AdminRoute><ReportedItems></ReportedItems></AdminRoute>
+            },
+            {
+                path:'/deshboard/payment/:id',
+                loader: ({params})=> fetch(`http://localhost:5000/payment/${params.id}`),
+                element:<Payment></Payment>
             }
         ]
     }

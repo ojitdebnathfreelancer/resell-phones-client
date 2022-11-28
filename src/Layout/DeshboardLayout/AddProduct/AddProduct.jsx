@@ -54,7 +54,8 @@ const AddProduct = () => {
                     condition: data.condition,
                     discription: data.discription,
                     sellerEmail:user.email,
-                    seller_verify: false
+                    seller_verify: false,
+                    pay:false
                 };
 
                 fetch(`http://localhost:5000/addproduct`, {

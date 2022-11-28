@@ -3,9 +3,7 @@ import toast from 'react-hot-toast';
 
 const MyProductCard = ({ product, refetch }) => {
 
-    const { condition, img, locaton, number, post_time, product_name, resell_price, sellerEmail, seller_name, used_time, _id, ads } = product;
-
-    console.log(product);
+    const { condition, img, locaton, number, post_time, product_name, resell_price, sellerEmail, seller_name, used_time, _id, ads, pay } = product;
 
     const handeleteMyProductDelete = (id) => {
         fetch(`http://localhost:5000/myproductdelete/${id}`, {
@@ -69,7 +67,9 @@ const MyProductCard = ({ product, refetch }) => {
             </td>
             <td>{locaton}</td>
             <td className='text-center'>
-                Aivalable
+                {
+                    pay? "Sold" : "Aivalable"
+                }
             </td>
             <th className='text-center'>
                 {
