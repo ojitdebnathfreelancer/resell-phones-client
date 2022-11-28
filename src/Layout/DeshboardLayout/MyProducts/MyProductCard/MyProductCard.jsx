@@ -3,7 +3,9 @@ import toast from 'react-hot-toast';
 
 const MyProductCard = ({ product, refetch }) => {
 
-    const { condition, img, locaton, number, post_time, product_name, resell_price, sellerEmail, seller_name, used_time, _id } = product;
+    const { condition, img, locaton, number, post_time, product_name, resell_price, sellerEmail, seller_name, used_time, _id, ads } = product;
+
+    console.log(product);
 
     const handeleteMyProductDelete = (id) => {
         fetch(`http://localhost:5000/myproductdelete/${id}`, {
@@ -20,11 +22,26 @@ const MyProductCard = ({ product, refetch }) => {
     };
     // delete sngle product 
 
+    const advetiseOn = product => {
+        fetch(`http://localhost:5000/advertiseon/${product._id}`, {
+            method: "PUT",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
+            .then(res => res.json())
+            .then(() => {
+                toast.success(`Your ads running on ${product.product_name}`);
+                refetch(); 
+            })
+    };
+    // advertise on api handel 
+
     return (
         <tr>
             <th>
                 <label>
-                    <button onClick={()=> handeleteMyProductDelete(_id)} className='btn btn-primary'>Delete</button>
+                    <button onClick={() => handeleteMyProductDelete(_id)} className='btn btn-primary'>Delete</button>
                 </label>
             </th>
             <td>
@@ -55,7 +72,12 @@ const MyProductCard = ({ product, refetch }) => {
                 Aivalable
             </td>
             <th className='text-center'>
-                <button className="btn btn-outline btn-accent btn-xs">Run Ads</button>
+                {
+                    ads ?
+                        <button className="btn btn-outline btn-accent btn-xs">Ruuning</button>
+                        :
+                        <button onClick={()=> advetiseOn(product)} className="btn btn-outline btn-accent btn-xs">Close</button>
+                }
             </th>
         </tr>
     );

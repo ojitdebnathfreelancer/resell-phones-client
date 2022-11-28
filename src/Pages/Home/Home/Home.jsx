@@ -1,5 +1,5 @@
 import React from 'react';
-import Advertise from '../Advertise/Advertise';
+import Advertise from '../Advertise/Advertise/Advertise';
 import Banner from '../Banner/Banner';
 import ExtraInfo from '../ExtraInfo/ExtraInfo';
 import SellerText from '../SellerText/SellerText';

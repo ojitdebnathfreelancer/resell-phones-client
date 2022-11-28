@@ -37,13 +37,42 @@ const AllSellers = () => {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            toast.success("All sellers deleted");
-            refetch();
-        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success("All sellers deleted");
+                refetch();
+            })
     };
-    // all seller delete 
+    // all seller delete , yet not use this 
+
+    const handelVerifySeller = (email, id) => {
+        fetch(`http://localhost:5000/sellerverify?email=${email}`, {
+            method: "PUT",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
+            .then(res => res.json())
+            .then(() => {
+                toast.success('Seller verifid');
+                userSellerVeify(id);
+            })
+    };
+    // seller vefify 
+
+    const userSellerVeify = (id) => {
+        fetch(`http://localhost:5000/usersellerverify/${id}`, {
+            method: "PUT",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
+            .then(res => res.json())
+            .then(() => {
+                refetch();
+            })
+    };
+    // userSeller verify 
 
     return (
         <div className="overflow-x-auto w-full">
@@ -52,9 +81,9 @@ const AllSellers = () => {
                     <tr>
                         <th>Seller Informations</th>
                         <th>Role</th>
-                        <th className='text-center'>Verify</th>
+                        <th className='text-center'>Verify Status</th>
                         <th className='text-center'>
-                            <button onClick={handleDeleteAllSeller} className="btn btn-outline btn-accent btn-sm">Delete All</button>
+                            <button className="btn btn-outline btn-accent btn-sm">Delete All</button>
                         </th>
                     </tr>
                 </thead>
@@ -68,7 +97,12 @@ const AllSellers = () => {
                             </td>
                             <td>{seller.role}</td>
                             <td className='text-center'>
-                                <button className='btn btn-outline btn-primary btn-sm'>Verify</button>
+                                {
+                                    seller?.seller_verify ?
+                                        <button className='text-green-500 font-bold'>Verifid</button>
+                                        :
+                                        <button onClick={() => handelVerifySeller(seller.email, seller._id)} className='btn btn-outline btn-primary btn-sm'>Verify</button>
+                                }
                             </td>
                             <th className='text-center'>
                                 <button onClick={() => handeleDelteSeller(seller._id)} className="btn btn-outline btn-accent btn-sm">Delete</button>

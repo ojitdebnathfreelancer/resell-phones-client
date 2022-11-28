@@ -149,6 +149,7 @@ const Signup = () => {
                                         type="radio"
                                         name="role"
                                         value="buyer"
+                                        selected 
                                         className="radio radio-primary"
                                     />
                                     <span className='ml-2'>Buyer</span>

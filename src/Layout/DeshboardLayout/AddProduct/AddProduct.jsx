@@ -53,7 +53,8 @@ const AddProduct = () => {
                     post_time: mainTime,
                     condition: data.condition,
                     discription: data.discription,
-                    sellerEmail:user.email
+                    sellerEmail:user.email,
+                    seller_verify: false
                 };
 
                 fetch(`http://localhost:5000/addproduct`, {

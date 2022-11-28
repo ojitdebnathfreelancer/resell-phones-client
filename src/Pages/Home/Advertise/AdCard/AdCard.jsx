@@ -1,8 +1,7 @@
 import React from 'react';
 import { FcApproval } from "react-icons/fc";
 
-const Card = ({ product, setBookingProduct }) => {
-
+const AdCard = ({ product, setBookingProduct }) => {
     const { img, locaton, orginal_price, post_time, product_name, resell_price, seller_name, used_time, condition, discription, number, seller_verify } = product;
 
     return (
@@ -48,4 +47,4 @@ const Card = ({ product, setBookingProduct }) => {
     );
 };
 
-export default Card;
+export default AdCard;
